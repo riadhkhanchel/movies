@@ -1,7 +1,11 @@
 //This is a Parent component of Movies
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Moviecard from "../Movies/Moviecard";
+import Button from "@material-ui/core/Button";
+
 const MoviesList = () => {
+  const [search, setSearch] = useState("");
+  const [filteredmovies, setFilteredmovies] = useState([]);
   let moviesData = [
     {
       id: Math.random(),
@@ -83,10 +87,27 @@ const MoviesList = () => {
         "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
     },
   ];
+  useEffect(() => {
+    setFilteredmovies(
+      moviesData.filter((movie) =>
+        movie.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, moviesData]);
 
-    return (
+  return (
     <div>
-      {moviesData.map((movie,i) => (<Moviecard movie={movie} key={i} />))}
+      <Button variant="contained" color="primary">
+        Add A movie
+      </Button> <br/>
+      <input
+        type="text"
+        placeholder="Search a movie"
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {filteredmovies.map((movie, i) => (
+        <Moviecard movie={movie} key={i} />
+      ))}
     </div>
   );
 };

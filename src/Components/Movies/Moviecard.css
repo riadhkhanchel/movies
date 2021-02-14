@@ -1,0 +1,7 @@
+.MainCard{
+    display: flex;
+    justify-content: flex-end;
+    background-color: aqua;
+    width: 150%;
+    margin:5% auto;
+}
